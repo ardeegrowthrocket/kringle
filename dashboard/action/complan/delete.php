@@ -1,7 +1,7 @@
 ﻿<?php
-$primary = "accounts_id";
+$primary = "rate_id";
 $pid = $_GET['id'];
-$tbl = "tbl_accounts";
+$tbl = "tbl_rate";
 $query  = mysql_query_md("SELECT * FROM $tbl WHERE $primary='$pid'");
 while($row=mysql_fetch_md_assoc($query))
 {
@@ -10,16 +10,14 @@ while($row=mysql_fetch_md_assoc($query))
 		 $sdata[$key] = $val;
 	}
 }
-$field[] = array("type"=>"text","value"=>"username","label"=>"Username");
-$field[] = array("type"=>"text","value"=>"fullname","label"=>"Fullname");
-$field[] = array("type"=>"number","value"=>"wallet","label"=>"Wallet");
-$field[] = array("type"=>"text","value"=>"password","label"=>"Password");
-$field[] = array("type"=>"email","value"=>"email","label"=>"Email");
-$field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>array("0"=>"Member","1"=>"Administrator"));
+$field[] = array("type"=>"text","value"=>"rate_name","label"=>"Complan Name");
+$field[] = array("type"=>"number","value"=>"rate_start","label"=>"Amount Fee");
+$field[] = array("type"=>"number","value"=>"rate_end","label"=>"Direct Referral Bonus");
+$field[] = array("type"=>"number","value"=>"rate_bonus","label"=>"Bonus Months in Table Matrix");
 
-//$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'));
+//$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'),"attr"=>"disabled");
 ?>
-<h2>Users</h2>
+<h2>Are you sure you want to delete?</h2>
 <div class="panel panel-default">
    <div class="panel-body">
       <form method='POST' action='?pages=<?php echo $_GET['pages'];?>'>
@@ -30,4 +28,3 @@ $field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>arra
       </form>
    </div>
 </div> 
-

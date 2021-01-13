@@ -10,11 +10,14 @@ while($row=mysql_fetch_md_assoc($query))
 		$sdata[$key] = $val;
 	}
 }
-$field[] = array("type"=>"text","value"=>"username","label"=>"Username","attr"=>"disabled");
-//$field[] = array("type"=>"password","value"=>"password","label"=>"Password","attr"=>"disabled");
-$field[] = array("type"=>"email","value"=>"email","label"=>"Email","attr"=>"disabled");
+$field[] = array("type"=>"text","value"=>"username","label"=>"Username");
+$field[] = array("type"=>"text","value"=>"fullname","label"=>"Fullname");
+$field[] = array("type"=>"number","value"=>"wallet","label"=>"Wallet");
+$field[] = array("type"=>"text","value"=>"password","label"=>"Password");
+$field[] = array("type"=>"email","value"=>"email","label"=>"Email");
+$field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>array("0"=>"Member","1"=>"Administrator"));
 
-$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'),"attr"=>"disabled");
+//$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'),"attr"=>"disabled");
 ?>
 <h2>Are you sure you want to delete?</h2>
 <div class="panel panel-default">

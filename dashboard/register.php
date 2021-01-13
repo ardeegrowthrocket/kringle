@@ -4,12 +4,70 @@ include("connect.php");
 include("function.php");
 
 
-
+/*
+SELECT accounts_id as aid,path,email,level,(SELECT COUNT(accounts_id) FROM tbl_accounts WHERE parent=aid) as count,(CONCAT(level,"-",path)) as lvl FROM `tbl_accounts`  
+HAVING count <= 1 AND path LIKE '0/20%'
+ORDER BY `lvl` ASC LIMIT 1
+*/
 if(!empty($_POST['submit']))
 {
 
 $error = "";
   
+$query_referx = mysql_query_md("SELECT accounts_id FROM tbl_accounts ORDER by accounts_id DESC LIMIT 1");
+$rowreferx = mysql_fetch_md_assoc($query_referx);
+$last_id = $rowreferx['accounts_id'];
+$_POST['accounts_id'] = $last_id + 10;
+
+
+
+if(!empty($_REQUEST['refer'])){
+
+
+
+
+if(countfield("accounts_id",$_POST['refer'])==0)
+{
+  $error .= "Referral URL is incorrect kindly retry.<br/>";
+}
+
+
+
+
+$query_refer = mysql_query_md("SELECT path FROM tbl_accounts WHERE accounts_id = '{$_POST['refer']}'");
+$rowrefer = mysql_fetch_md_assoc($query_refer);
+$path = $rowrefer['path'];
+
+
+
+ $q2xxx = "SELECT accounts_id as aid,path,email,level,(SELECT COUNT(accounts_id) FROM tbl_accounts WHERE parent=aid) as count,(CONCAT(level,\"-\",path)) as lvl FROM `tbl_accounts` HAVING count <= 1 AND path LIKE '{$path}%' ORDER BY `lvl` ASC LIMIT 1";
+
+
+
+$query_refer2 = mysql_query_md($q2xxx);
+
+
+
+$rowrefer2 = mysql_fetch_md_assoc($query_refer2);
+
+$_POST['parent'] = $rowrefer2['aid'];
+$_POST['path'] = $rowrefer2['path']."/".$_POST['accounts_id'];
+
+$_POST['level'] = count(explode("/",$_POST['path']));
+
+
+
+}
+else{
+
+$_POST['parent'] = 0;
+$_POST['path'] = $rowrefer2['path']."/".$_POST['accounts_id'];
+$_POST['level'] = 2;
+}
+
+
+
+
 if(countfield("email",$_POST['email'])==0)
 {
   
@@ -42,15 +100,16 @@ if($error==''){
   $tbl = "tbl_accounts";
   $_POST['store'] = 1;
   mysql_query_md("INSERT INTO $tbl SET $fields");
+
 $tablerowxxx = "tbl_accounts";
 $queryrowxxx = "SELECT * FROM $tablerowxxx WHERE username='".$_POST['username']."'";
 $qrowxxx = mysql_query_md($queryrowxxx);
 $rowxxx = mysql_fetch_md_assoc($qrowxxx);
 foreach($rowxxx as $key=>$val)
 {
-  if($key!='stores'){
+  //if($key!='stores'){
     $_SESSION[$key] = $val;
-  }
+  //}
   
 }
 
@@ -160,6 +219,7 @@ if(!empty($error))
           </div>
           <!-- /.col -->
           <div class="col-4">
+            <input name='refer' type="hidden" value="<?php echo $_GET['refer']; ?>">
             <button type="submit" value="Submit" name="submit" class="btn btn-primary btn-block">Register</button>
           </div>
           <!-- /.col -->

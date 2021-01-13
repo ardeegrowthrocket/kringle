@@ -1,12 +1,16 @@
 ﻿<?php
 $sdata = array();
 $field[] = array("type"=>"text","value"=>"username","label"=>"Username");
+$field[] = array("type"=>"text","value"=>"fullname","label"=>"Fullname");
+$field[] = array("type"=>"number","value"=>"wallet","label"=>"Wallet");
 $field[] = array("type"=>"password","value"=>"password","label"=>"Password");
 $field[] = array("type"=>"email","value"=>"email","label"=>"Email");
-$field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>array("0"=>"Teller","1"=>"Administrator"));
-$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'));
+$field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>array("0"=>"Member","1"=>"Administrator"));
+//$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'));
 ?>
 <h2>Users</h2>
+
+
 <div class="panel panel-default">
    <div class="panel-body">
       <form method='POST' action='?pages=<?php echo $_GET['pages'];?>'>
@@ -16,3 +20,5 @@ $field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>
       </form>
    </div>
 </div> 
+
+

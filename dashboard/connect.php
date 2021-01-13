@@ -290,15 +290,18 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
 
             function loadform($field,$sdata = array(),$is_editable_field = 1)
             {
-               $return = '<table class="formgenerator" width="100%">';
+               $return = '<div class="card card-primary"><div class="card-body">';
                foreach($field as $inputs)
                {
 
 
+
+    
+                      $addedattr = array();
                					if($inputs['attributes'])
                					{
 
-	               					$addedattr = array();
+	               					
 
 	               					foreach($inputs['attributes'] as $keya=>$vala){
 
@@ -307,47 +310,38 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
 
 	               					}
 
-	               					$inputs['attr'] = implode(" ", $addedattr);
+	               					
                		
 
                					}
 
-                                 if($inputs['label']!='')
-                                 {
-                                 $label = $inputs['label'];
-                                 }
-                                 else
-                                 {
-                                 $label = ucwords($inputs['value']);
-                                 }
 
-                     if($inputs['skip']){
+                          if($_GET['task']=='delete'){
 
-                     $return .= "<tr>
-                        <td colspan=\"2\"><hr></td>
-                     </tr>
-                      <tr>
-                        <td colspan=\"2\">
-                           <strong>{$inputs['label']}</strong>
-                        </td>
-                     </tr>                    
-                      <tr>
-                        <td colspan=\"2\"><hr></td>
-                     </tr>";                    
-         
-                  continue;
-                  }
+                              $addedattr[] = "disabled=\"disabled\"";
+                          }
 
-                  $return .= "<tr class=\"{$_GET['pages']}-{$_GET['task']}-{$inputs['value']}\">";
 
-                  $return .= "<td style=\"width:180px;\" class=\"key\" valign=\"top\" >
-                  <label for=\"accounts_name\">{$label}{$req_fld}:</label><br/></td>";
+                        $inputs['attr'] = implode(" ", $addedattr);
+
+                       if($inputs['label']!='')
+                       {
+                       $label = $inputs['label'];
+                       }
+                       else
+                       {
+                       $label = ucwords($inputs['value']);
+                       }
+
+                  
+                  $return .= "<div class=\"form-group\">";     
+                  $return .= "<label for=\"exampleInputEmail1\">{$label}{$req_fld}</label>";
      				 if ( $is_editable_field ) { 
-                  $return .= "<td>";
+
                      if ($inputs['type']=='select')
                      {                                                                                               
                       
-                  $return .= "<select name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" required {$inputs['attr']}>";
+                  $return .= "<select class='form-control' name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" required {$inputs['attr']}>";
 
                         foreach($inputs['option'] as $key=>$val)
                         {
@@ -364,13 +358,13 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
 
                      else if($inputs['type']=='textarea'){
                       $sdata[$inputs['value']] = htmlentities($sdata[$inputs['value']]);
-                     	$return .= "<textarea {$inputs['attr']} required name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" name=''>{$sdata[$inputs['value']]}</textarea>";
+                     	$return .= "<textarea class='form-control' {$inputs['attr']} required name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" name=''>{$sdata[$inputs['value']]}</textarea>";
 
                      }
 
                      else if($inputs['type']=='editor'){
                       $sdata[$inputs['value']] = htmlentities($sdata[$inputs['value']]);
-                      $return .= "<textarea class='editor' {$inputs['attr']} required name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" name=''>{$sdata[$inputs['value']]}</textarea>";
+                      $return .= "<textarea  class='editor form-control' {$inputs['attr']} required name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" name=''>{$sdata[$inputs['value']]}</textarea>";
 
                      }
 
@@ -381,19 +375,23 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
                       if($inputs['type']=='number'){
                         $stepany = "step='any'";
                       }
-						$return .= "<input $stepany required {$inputs['attr']} type=\"{$inputs['type']}\" name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" size=\"40\" maxlength=\"255\" value=\"{$sdata[$inputs['value']]}\" />";
+						$return .= "<input class='form-control' $stepany required {$inputs['attr']} type=\"{$inputs['type']}\" name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" size=\"40\" maxlength=\"255\" value=\"{$sdata[$inputs['value']]}\" />";
 
-						$return .= "<span class=\"validation-status\"></span>";
+						            $return .= "<span class=\"validation-status\"></span>";
+                        $return .= "</div>";
+            
 
                      }
-                      $return .= "<td>";
-    
+               
+                  
            		} else {  
-           			$return .= "<td>{$sdata[$inputs['value']]}</td>";
+           			//$return .= "<td>{$sdata[$inputs['value']]}</td>";
            		} 
-                $return .= "</tr>";
+                
                }
-           		$return .= "</table>";
+
+
+           		$return .= "</div></div>";
 
            		return $return;
            		}

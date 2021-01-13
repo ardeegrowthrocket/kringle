@@ -29,6 +29,17 @@ foreach($rowxxx as $key=>$val)
     padding: 5px 5px 5px 10px;
     white-space: normal;
 }
+.card.card-primary {
+    padding: 20px;
+}
+a.goback {
+    font-size: 16px;
+    text-decoration: underline;
+}
+
+li.paginate_button {
+    margin-left: 6px;
+}
   </style>
 <div class="wrapper">
 
@@ -67,22 +78,19 @@ foreach($rowxxx as $key=>$val)
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
-          </div><!-- /.col -->
-        </div><!-- /.row -->
-      </div><!-- /.container-fluid -->
-    </div>
-    <!-- /.content-header -->
+
 
     <!-- Main content -->
     <section class="content">
       <div class="container-fluid">
-            test
+            <?php
+    $currpage = $_GET['pages'];
+    if($currpage=='')
+    {
+      $currpage = 'dashboard';
+    }
+    include("action/".$currpage.".php");
+            ?>
       </div>
             
     </section>

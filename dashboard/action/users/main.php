@@ -1,10 +1,10 @@
 ﻿<?php
- $field = array("accounts_id","username","email");
+ $field = array("username","fullname");
  $where = getwheresearch($field);
  $total = countquery("SELECT username FROM tbl_accounts $where");
  //primary query
  $limit = getlimit(10,$_GET['p']);
- $query = "SELECT * FROM tbl_accounts $where $limit";
+  $query = "SELECT * FROM tbl_accounts $where $limit";
 
  $q = mysql_query_md($query);
  $pagecount = getpagecount($total,10);
@@ -21,18 +21,19 @@ foreach($field as $ff){
     display:none;
 }
 </style>
-<h2>Users</h2>
+<h2>Users Management</h2>
 <div class="panel panel-default">
    <div class="panel-body">
          <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-12">
                <div class="panel panel-default">
                   <div class="panel-body">
                     <input onclick="window.location='<?php echo "?pages=".$_GET['pages']."&task=add"; ?>';" type="button" class="btn btn-primary" value="Add New Data">
                   </div>
                </div>
             </div>
-            <div class="col-md-9">
+            <div><hr></div>
+            <div class="col-md-12">
                <div class="panel panel-default">
                   <div class="panel-body">
                     Search by: <?php echo (implode(", ", $field_data)); ?>
@@ -54,7 +55,7 @@ foreach($field as $ff){
                <tr role='row'>
                   
                   <th>UserName</th>
-                  <th>Email</th>
+                  <th>Fullname</th>
                   <th>Role</th>
                   <th>Action</th>
                </tr>
@@ -64,11 +65,11 @@ foreach($field as $ff){
                   while($row=mysql_fetch_md_array($q))
                   {
                     $pid = $row['accounts_id'];
-                    $roledata = ($row['role'] >= 1 ? 'Administrator' : 'Teller');
+                    $roledata = ($row['role'] == 1 ? 'Administrator' : 'Member');
                   ?>
                <tr>
                   <td><?php echo $row['username']; ?></td>
-                  <td><?php echo $row['email']; ?></td>
+                  <td><?php echo $row['fullname']; ?></td>
                   <td><?php echo $roledata; ?></td>
                   <td>
                      <input onclick="window.location='<?php echo "?pages=".$_GET['pages']."&task=edit&id=$pid"; ?>';" type="button" class="btn btn-primary btn-sm" value="Edit">

@@ -3,8 +3,17 @@ session_start();
 require_once("./connect.php");
 require_once("./function.php");
 $accounts_id = $_SESSION['accounts_id'];
-$q = mysql_query_md("SELECT * FROM tbl_withdraw_history WHERE accounts_id='$accounts_id' ORDER by history DESC");
+$_GET['accounts_id'] = $accounts_id;
+ $field = array("transnum","email","username","accounts_id");
+ $where = getwheresearch($field);
 
+ $total = countquery("SELECT id FROM tbl_withdraw_history $where");
+ //primary query
+ $limit = getlimit(10,$_GET['p']);
+ $query = "SELECT * FROM tbl_withdraw_history as a $where $limit";
+
+ $q = mysql_query_md($query);
+ $pagecount = getpagecount($total,10);
 ?>
 <h2>Withdrawal History</h2>
                     <div class="panel panel-default">
@@ -48,7 +57,9 @@ $q = mysql_query_md("SELECT * FROM tbl_withdraw_history WHERE accounts_id='$acco
                                                 if($row['claim_status']==0 && $row['claimtype']=='smartpadala'){ 
                                                     echo "On Process (Smart Padala)";
                                                 }                                                
-
+                                                if($row['claim_status']==0){ 
+                                                    echo "Processing Request";
+                                                }
                                                 if($row['claim_status']==1)
                                                 {     
                                                     echo "<p>Claimed</p>";
@@ -64,4 +75,32 @@ $q = mysql_query_md("SELECT * FROM tbl_withdraw_history WHERE accounts_id='$acco
                                 </table>
                             </div>
                         </div>
-                    </div>   
+                    </div> 
+            <div class="row">
+               <div class="col-sm-12">
+                  <div class="dataTables_paginate paging_simple_numbers">
+                     <ul class="pagination">
+                      <?php
+                        for($c=1;$c<=$pagecount;$c++)
+                        {
+                          $active = '';
+
+                          if($_GET['p']=='' && $c==1)
+                          {
+                            $active = 'active';
+                          }
+                          if($c==$_GET['p'])
+                          {
+                            $active = 'active';
+                          }
+                          $url = "?search=".$_GET['search']."&pages=".$_GET['pages']."&search_button=Submit&p=".$c;
+                      ?>
+                        <li class="paginate_button <?php echo $active; ?>" aria-controls="dataTables-example" tabindex="0"><a href="<?php echo $url; ?>"><?php echo $c; ?></a></li>
+                      <?php
+                        }
+                      ?>
+                     </ul>
+                  </div>
+               </div>
+            </div> 
+

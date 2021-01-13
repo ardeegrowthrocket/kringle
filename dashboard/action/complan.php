@@ -2,8 +2,8 @@
 session_start();
 require_once("./connect.php");
 require_once("./function.php");
-$tbl = "tbl_accounts";
-$primary = "accounts_id";
+$tbl = "tbl_rate";
+$primary = "rate_id";
 /*SQL*/
 $refresh = 0;
 if($_POST['submit']!='' && $_POST['task']=='add')
@@ -13,6 +13,7 @@ if($_POST['submit']!='' && $_POST['task']=='add')
 
 	$_POST['createdby'] = $_SESSION['username'];
 	$fields = formquery($_POST);
+
 	mysql_query_md("INSERT INTO $tbl SET $fields");
 
 	#setcookie('noti', "Done adding data",60, "/");
