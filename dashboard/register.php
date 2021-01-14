@@ -152,8 +152,8 @@ foreach($rowxxx as $key=>$val)
 </head>
 <body class="hold-transition register-page">
 <div class="register-box">
-  <div class="register-logo">
-    <b>Kringle</b>Exchange
+  <div class="login-logo">
+    <img src='logo.png'>
   </div>
 <?php
 if(!empty($error))

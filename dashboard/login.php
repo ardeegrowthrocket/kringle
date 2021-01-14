@@ -23,7 +23,7 @@ $main = getrow("tbl_logo");
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    <b>Kringle</b>Exchange
+    <img src='logo.png'>
   </div>
   <!-- /.login-logo -->
   <div class="card">

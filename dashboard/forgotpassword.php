@@ -22,7 +22,7 @@ include("function.php");
 <body class="hold-transition login-page">
 <div class="login-box">
   <div class="login-logo">
-    KringleExchange
+    <img src='logo.png'>
   </div>
 <div id="notibar">
 
