@@ -29,6 +29,9 @@ foreach($rowxxx as $key=>$val)
     padding: 5px 5px 5px 10px;
     white-space: normal;
 }
+aside.main-sidebar.sidebar-dark-primary.elevation-4 {
+   
+}
 .card.card-primary {
     padding: 20px;
 }
@@ -39,6 +42,10 @@ a.goback {
 
 li.paginate_button {
     margin-left: 6px;
+}
+
+a.brand-link {
+    text-align: center;
 }
   </style>
 <div class="wrapper">
@@ -84,10 +91,16 @@ li.paginate_button {
     <section class="content">
       <div class="container-fluid">
             <?php
+
     $currpage = $_GET['pages'];
     if($currpage=='')
     {
       $currpage = 'dashboard';
+    }
+
+
+    if($currpage=='exchangerequest' && $_SESSION['activated']==0){
+      $currpage = "activate";
     }
     include("action/".$currpage.".php");
             ?>
@@ -130,10 +143,8 @@ li.paginate_button {
 <!-- ChartJS -->
 <script src="plugins/chart.js/Chart.min.js"></script>
 <!-- Sparkline -->
-<script src="plugins/sparklines/sparkline.js"></script>
-<!-- JQVMap -->
-<script src="plugins/jqvmap/jquery.vmap.min.js"></script>
-<script src="plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+
+
 <!-- jQuery Knob Chart -->
 <script src="plugins/jquery-knob/jquery.knob.min.js"></script>
 <!-- daterangepicker -->
@@ -151,5 +162,12 @@ li.paginate_button {
 <script src="dist/js/demo.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="dist/js/pages/dashboard.js"></script>
+
+<script type="text/javascript">
+  
+ jQuery( document ).ready(function() {
+      start();
+});
+</script>
 </body>
 </html>

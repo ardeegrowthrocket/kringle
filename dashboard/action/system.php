@@ -64,7 +64,7 @@ exit();
 
 if($_SESSION['role']!=1)
 {
-	#	exit("hey your not allowed here");
+	exit("hey your not allowed here");
 }
 
 include($_GET['pages']."/main.php");

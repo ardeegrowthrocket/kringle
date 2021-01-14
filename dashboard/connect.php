@@ -475,6 +475,17 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
               }
 
 
+              function systemconfig($code){
+
+                $q = mysql_query_md("SELECT value FROM `tbl_system` WHERE code='$code'");
+
+                $a = mysql_fetch_md_array($q);
+
+
+                return $a['value'];
+              }
+
+
 
               function getarrayconfig($code){
 

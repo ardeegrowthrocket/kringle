@@ -1,67 +1,16 @@
-<?php    
-	include("connect.php");
-	include("function.php");
- function retrieveSubTree($parent, $myarray) {
-    $tempArray = $myarray;
-    $array = array();           
-    //now we have our top level parent, lets put its children into an array, yea!
-    while ($child = array_search($parent, $tempArray)) {
-        unset($tempArray[$child]);
-        //now lets get all this guys children
-        if (in_array($child, $tempArray)) {
-            $array[$child] = retrieveSubTree($child, $tempArray);
-        } else {
-            $array[$child] = true;
-        }
-    }//end while
-    return (!empty($array)) ? $array : false;
-}
-
-function retrieveTree($myarray) {
-    $array = array();
-    $counter = 0;
-    foreach ($myarray as $key => $value) {
-        $child = $key;
-        $parent = $value;
-        //if this child is a parent of somebody else
-        if (in_array($child, $myarray) && $parent != '0') {
-            while ($myarray[$parent] != '' && $myarray[$parent] != '0') {
-                $newparent = $myarray[$parent];
-                $parent = $newparent;
-            }
-            if (!array_key_exists($parent, $array)) {
-                $array[$parent] = retrieveSubTree($parent, $myarray);
-            }
-        } else {
-            //now make sure they don't appear as some child
-            if (!array_key_exists($parent, $myarray)) {
-                //see if it is a parent of anybody
-                if (in_array($child, $myarray)) {
-                    $array[$child] = retrieveSubTree($child, $myarray);
-                } else {
-                    $array[$child] = true;
-                }
-            }//end if array key
-        }//end initial in array
-    }//end foreach
-    return (!empty($array) ? $array : false);
-} 
-echo "<pre>";
-
-
-
- $q = mysql_query_md("SELECT accounts_id,parent FROM `tbl_accounts`");
-                  while($row=mysql_fetch_md_array($q))
-                  {
-                    $test[$row['accounts_id']] = $row['parent'];
-                  }
-$a = retrieveTree($test);
-
-
-
-foreach($a as $key=>$val){
-
-    echo $key."<br>";
-
-
-}
+<form action="https://www.coinpayments.net/index.php" method="post">
+    <input type="hidden" name="cmd" value="_pay_simple">
+    <input type="hidden" name="reset" value="1">
+    <input type="hidden" name="merchant" value="<?php echo systemconfig('merchant_id'); ?>">
+    <input type="hidden" name="item_name" value="Test">
+    <input type="hidden" name="item_desc" value="Test Description">
+    <input type="hidden" name="item_number" value="1">
+    <input type="hidden" name="invoice" value="1">
+    <input type="hidden" name="currency" value="USD">
+    <input type="hidden" name="amountf" value="1.00000000">
+    <input type="hidden" name="want_shipping" value="0">
+    <input type="hidden" name="success_url" value="http://kringle.local/dashboard/index.php?pages=withdrawrequest">
+    <input type="hidden" name="cancel_url" value="http://kringle.local/dashboard/index.php?pages=withdrawrequest">
+    <input type="hidden" name="ipn_url" value="http://jointlineagecare.com/wasak.php">
+    <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
+</form>

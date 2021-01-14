@@ -80,61 +80,21 @@ if($success!='')
 <?php
 }
 ?>
+<?php
+$field = array();
 
-<form method="POST" action="">
-   <table width="100%">
-      <tbody>
+$field[] = array("type"=>"select","value"=>"claimtype","label"=>"Select Mode of Withdrawal","option"=>array("btc"=>"Bitcoin","kc"=>"Kringle Coins","billc"=>"The Billion Coins"));
+$field[] = array("type"=>"text","value"=>"address","label"=>"BTC Address:");
+$field[] = array("type"=>"password","value"=>"password","label"=>"Please enter password:");
+$field[] = array("type"=>"number","value"=>"withdraw","label"=>"Amount to withdraw:");
+//$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'));
+?>
 
-         <tr>
-            <td style="width:180px;" class="key" valign="top"><label for="accounts_name">Withdrawal Type</label></td>
-            <td>
-				<select name='claimtype' onchange="widraw(this.value)" required>
-						<option>Select Mode of Withdrawal</option>
-						<option value='btc'>Bitcoin</option>
-						<option value='kc'>Kringle Coins</option>
-						<option value='billc'>The Billion Coins</option>
-				</select>											
-            </td>
-         </tr>
-
-
-         <tr class='antibugx'>
-            <td style="width:180px;" class="key" valign="top"><label for="accounts_name">BTC Address:</label></td>
-            <td>
-               <input style="width: 302px;" required="" type="text" name="address" id="address" size="40" maxlength="255" value="">
-               <span class="validation-status"></span>												
-            </td>
-         </tr>
-
-
-         <tr class='antibugx'>
-            <td style="width:180px;" class="key" valign="top"><label for="accounts_name">Amount to withraw:</label></td>
-            <td>
-               <input style="width: 302px;" required="" type="number" name="withdraw" id="withdraw" size="40" maxlength="255" value="">
-               <span class="validation-status"></span>												
-            </td>
-         </tr>
-         <tr class='antibugx'>
-            <td style="width:180px;" class="key" valign="top"><label for="accounts_name">Please enter password:</label></td>
-            <td>
-               <input style="width: 302px;" required="" type="password" name="password" id="password" size="40" maxlength="255" value="">
-               <span class="validation-status"></span>												
-            </td>
-         </tr>
-      </tbody>
-   </table>
-   <br>
-   <center><input class="btn btn-primary btn-lg" type="submit" name="submit" value="Process"></center>
-</form>
-<script>
-function widraw(myval)
-{
-
-
-		$( ".antibug" ).each(function() {
-			$(this).show();
-		});		
-
-
-}
-</script>
+<div class="panel panel-default">
+   <div class="panel-body">
+      <form method='POST' action='?pages=<?php echo $_GET['pages'];?>'>
+         <?php echo loadform($field,$sdata); ?>
+         <center><input class='btn btn-primary btn-lg' type='submit' name='submit' value='Submit'></center>
+      </form>
+   </div>
+</div> 

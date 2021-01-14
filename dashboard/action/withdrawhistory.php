@@ -16,7 +16,16 @@ $_GET['accounts_id'] = $accounts_id;
  $pagecount = getpagecount($total,10);
 ?>
 <h2>Withdrawal History</h2>
-                    <div class="panel panel-default">
+
+
+<?php
+if($total==0) {
+?>
+<p> No withdrawals history. </p>
+<?php
+}
+?>
+                    <div class="panel panel-default" style="<?php if($total==0) { echo "display:none;"; } ?>">
 
                         <div class="panel-body">
                             <div class="table-responsive">

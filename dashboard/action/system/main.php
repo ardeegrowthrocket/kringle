@@ -11,9 +11,10 @@
 
 
 
-$field[] = array("type"=>"editor","value"=>"mission");
-$field[] = array("type"=>"editor","value"=>"vision");
+// $field[] = array("type"=>"editor","value"=>"mission");
+// $field[] = array("type"=>"editor","value"=>"vision");
 $field[] = array("type"=>"text","value"=>"email","label"=>"Receiver of contact form.");
+$field[] = array("type"=>"text","value"=>"merchant_id","label"=>"Merchant ID.");
 #var_dump(generatedate($sdata));
 
 ?>
@@ -27,17 +28,8 @@ $field[] = array("type"=>"text","value"=>"email","label"=>"Receiver of contact f
          
          <?php echo loadform($field,$sdata); ?>
 
-         <?php echo multiformconfig("loanclass","Loan Class",$sdata['loanclass']); ?>
+         <?php //echo multiformconfig("loanclass","Loan Class",$sdata['loanclass']); ?>
 
-         <?php echo multiformconfig("loanterms","Loan Terms",$sdata['loanterms']); ?>
-
-         <?php echo multiformconfig("mutualterms","Mutual Fund Years",$sdata['mutualterms']); ?>
-
-
-         <?php echo multiformconfig("weeklyterms","Weekly Statics",$sdata['weeklyterms']); ?>
-
-
-         <?php echo multiformconfig("stores","Branches",$sdata['stores']); ?>
 
 
          <center><input class='btn btn-primary btn-lg' type='submit' name='submit' value='Save Configuration'></center>
