@@ -41,7 +41,14 @@
 
            </ul>
 </li>
-
+          <li class="nav-item">
+            <a href="index.php?pages=subscription" class="nav-link">
+              <i class="nav-icon fas fa-satellite-dish"></i>
+              <p>
+                Table Matrix Subscription
+              </p>
+            </a>
+          </li>
 
 
           <li class="nav-item">

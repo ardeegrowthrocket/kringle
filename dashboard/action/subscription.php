@@ -4,24 +4,57 @@ require_once("./connect.php");
 require_once("./function.php");
 
 
-		$query = "SELECT * FROM tbl_rate";
-		$q = mysql_query_md($query);
 		$rate = array();
-		while($row=mysql_fetch_md_array($q)){
-			
-				foreach($row as $key=>$val){
 
-					$rate[$row['rate_id']][$key] = $val;
-				}
 
-		}
+for ($x = 1; $x <= 5; $x++) {
+  
+  $rdata = array();
+
+  $rdata['rate_id'] = $x;
+  $rdata['rate_name'] = $x." Months";
+
+  if($x==1){
+
+      $rdata['rate_name'] = $x." Month";
+  }
+  $rdata['rate_start'] = 1 * $x;
+  $rdata['rate_end'] = 1;
+  $rdata['rate_bonus'] = 1;
+
+  $rate[] = $rdata;
+}
+
+  $is_active = 1;
+
+  if(empty($_SESSION['deadline'])){
+      $is_active = 0;
+  }else
+
+  {
+
+$today = date("Y-m-d h:i:s");
+$expire = $_SESSION['deadline']; //from database
+
+$today_time = strtotime($today);
+$expire_time = strtotime($expire);
+
+if ($expire_time < $today_time) { 
+
+     $is_active = 0;
+ }
+
+}
 
 ?>
-<div class="callout callout-warning">
-      <h5>Please activate your account below.</h5>
 
-      <p>Purchase any of the plans below to use our exchange function for lifetime.</p>
+<?php if(empty($is_active)) { ?>
+<div class="callout callout-warning">
+      <h5>Please resubscribe your account below.</h5>
+
+      <p>You will lose the chance of getting large bonuses every month.</p>
 </div>
+<?php } ?>
 <style>
 	label.btn.btn-default.text-center.active {
     background-color: #b3b3b3;
@@ -38,8 +71,8 @@ require_once("./function.php");
 		jQuery(aa).addClass('active');
 		jQuery('#pricecc').text(jQuery(aa).attr('data-price'));
 
-		jQuery('#item_name').val(jQuery(aa).attr('data-rate_name')+" Complan");
-		jQuery('#item_desc').val("Complan Payment for Account : <?php echo $_SESSION['username']; ?>");
+		jQuery('#item_name').val(jQuery(aa).attr('data-rate_name')+" Subscription");
+		jQuery('#item_desc').val("Subscription Payment for Account : <?php echo $_SESSION['username']; ?>");
 		jQuery('#item_number').val(jQuery(aa).attr('data-rate_id'));
 		jQuery('#amountf').val(jQuery(aa).attr('data-rate_start'));
 
@@ -49,8 +82,8 @@ require_once("./function.php");
 
 		
 
-    jQuery('#item_name2').val(jQuery(aa).attr('data-rate_name')+" Complan");
-    jQuery('#item_desc2').val("Complan Payment for Account : <?php echo $_SESSION['username']; ?>");
+    jQuery('#item_name2').val(jQuery(aa).attr('data-rate_name')+" Subscription");
+    jQuery('#item_desc2').val("Subscription Payment for Account : <?php echo $_SESSION['username']; ?>");
     jQuery('#item_number2').val(jQuery(aa).attr('data-rate_id'));
     jQuery('#amountf2').val(jQuery(aa).attr('data-rate_start'));
 
@@ -61,12 +94,12 @@ require_once("./function.php");
         <div class="card-body">
           <div class="row">
             <div class="col-12 col-sm-12">
-              <h3 class="my-3">Registration Fee</h3>
+              <h3 class="my-3">Subscription Fee</h3>
 <!--               <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terr.</p>
  -->
               <hr>
 
-              <h4 class="mt-3">Complan <small>Please select one</small></h4>
+              <h4 class="mt-3">Select Months: <small>Please select one</small></h4>
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
 
               	<?php 
@@ -95,8 +128,7 @@ require_once("./function.php");
 
             <div class="tab-content p-3" id="nav-tabContent">
               <div class="tab-pane fade show active" id="product-desc" role="tabpanel" aria-labelledby="product-desc-tab"> 
-              		Direct Referral Bonus: <span id='referral'>Bonus</span><br/>
-              		Matrix Subscription Bonus: <span id='matrix'>Bonus</span><br/>
+                    This will unlock bonus for every downline up to 10th level.
 
                </div>
             </div>
@@ -150,7 +182,7 @@ require_once("./function.php");
     <input type="hidden" name="want_shipping" value="0">
     <input type="hidden" name="success_url" value="<?php echo $url; ?>dashboard/index.php">
     <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=exchangerequest">
-    <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn.php">
+    <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn2.php">
     <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
 </form>
 
@@ -158,7 +190,7 @@ require_once("./function.php");
 
 
 <?php if($_GET['debugpay']==1) { ?>
-<form id='paymentproceed2' action="<?php echo $url; ?>dashboard/ipn.php" method="post">
+<form id='paymentproceed2' action="<?php echo $url; ?>dashboard/ipn2.php" method="post">
     <input type="hidden" name="cmd" value="_pay_simple">
     <input type="hidden" name="reset" value="1">
     <input type="hidden" name="merchant" value="<?php echo systemconfig('merchant_id'); ?>">

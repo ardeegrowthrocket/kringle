@@ -59,6 +59,24 @@ $query = "SELECT * FROM `tbl_accounts` WHERE path LIKE '{$path}%' AND level <= $
           <?php 
           foreach ($person as $d) { 
               $html = "<div style=\"color:green\">Active</div>";
+
+              if(empty($d['deadline'])){
+                  $html = "<div style=\"color:red\">Inactive</div>";
+              }else{
+
+$today = date("Y-m-d h:i:s");
+$expire = $d['deadline']; //from database
+
+$today_time = strtotime($today);
+$expire_time = strtotime($expire);
+
+if ($expire_time < $today_time) { 
+
+     $html = "<div style=\"color:red\">Inactive</div>";
+ }
+
+
+              }
             ?>
           [{'v':'<?php echo $d['accounts_id']; ?>', 'f':'<?php echo $d['email']; ?><?php echo $html; ?>'},'<?php echo $d['parent']; ?>', ''],
          <?php } ?>

@@ -9,14 +9,17 @@
       
    }
 
+$field = array();
+$field2 = array();
 
 
 // $field[] = array("type"=>"editor","value"=>"mission");
 // $field[] = array("type"=>"editor","value"=>"vision");
-$field[] = array("type"=>"text","value"=>"email","label"=>"Receiver of contact form.");
 $field[] = array("type"=>"text","value"=>"merchant_id","label"=>"Merchant ID.");
 #var_dump(generatedate($sdata));
-
+$field2[] = array("type"=>"text","value"=>"table_percent","label"=>"Percentage of Bonus in Table Matrix.");
+$field2[] = array("type"=>"text","value"=>"table_amount","label"=>"Subscription Fee.");
+//
 ?>
 <h2>System Configuration</h2>
 <div class="panel panel-default">
@@ -27,6 +30,8 @@ $field[] = array("type"=>"text","value"=>"merchant_id","label"=>"Merchant ID.");
       <input type='hidden' name='id' value='<?php echo $_GET['id'];?>'>
          
          <?php echo loadform($field,$sdata); ?>
+
+         <?php echo loadform($field2,$sdata); ?>
 
          <?php //echo multiformconfig("loanclass","Loan Class",$sdata['loanclass']); ?>
 

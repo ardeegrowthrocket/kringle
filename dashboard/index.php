@@ -32,6 +32,12 @@ foreach($rowxxx as $key=>$val)
 aside.main-sidebar.sidebar-dark-primary.elevation-4 {
    
 }
+.noti {
+    padding: 11px;
+    font-size: 19px;
+    color: green;
+}
+
 .card.card-primary {
     padding: 20px;
 }

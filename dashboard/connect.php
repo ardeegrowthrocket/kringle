@@ -475,6 +475,27 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
               }
 
 
+              
+              function ratedata($id){
+
+                $q = mysql_query_md("SELECT * FROM `tbl_rate` WHERE rate_id='$id'");
+
+                $a = mysql_fetch_md_array($q);
+
+
+                return $a;
+              }
+
+              function userdata($id){
+
+                $q = mysql_query_md("SELECT * FROM `tbl_accounts` WHERE accounts_id='$id'");
+
+                $a = mysql_fetch_md_array($q);
+
+                return $a;
+              }
+
+
               function systemconfig($code){
 
                 $q = mysql_query_md("SELECT value FROM `tbl_system` WHERE code='$code'");
