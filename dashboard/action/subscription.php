@@ -18,7 +18,7 @@ for ($x = 1; $x <= 5; $x++) {
 
       $rdata['rate_name'] = $x." Month";
   }
-  $rdata['rate_start'] = 1 * $x;
+  $rdata['rate_start'] = systemconfig("table_amount") * $x;
   $rdata['rate_end'] = 1;
   $rdata['rate_bonus'] = 1;
 
@@ -177,11 +177,11 @@ if ($expire_time < $today_time) {
     <input type="hidden" id='item_desc' name="item_desc" value="Test Description">
     <input type="hidden" id='item_number' name="item_number" value="1">
     <input type="hidden" id='custom' name="custom" value="<?php echo $_SESSION['accounts_id']; ?>">
-    <input type="hidden" id='invoice' name="invoice" value="CP-<?php echo rand(); ?>">
+    <input type="hidden" id='invoice' name="invoice" value="SF-<?php echo rand(); ?>">
     <input type="hidden" id='amountf' name="amountf" value="1.00000000">
     <input type="hidden" name="want_shipping" value="0">
     <input type="hidden" name="success_url" value="<?php echo $url; ?>dashboard/index.php">
-    <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=exchangerequest">
+    <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=subscription">
     <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn2.php">
     <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
 </form>
@@ -202,12 +202,12 @@ if ($expire_time < $today_time) {
     <input type="hidden" id='item_desc2' name="item_desc" value="Test Description">
     <input type="hidden" id='item_number2' name="item_number" value="1">
     <input type="hidden" id='custom2' name="custom" value="<?php echo $_SESSION['accounts_id']; ?>">
-    <input type="hidden" id='invoice2' name="invoice" value="CP-<?php echo rand(); ?>">
+    <input type="hidden" id='invoice2' name="invoice" value="SF-<?php echo rand(); ?>">
     <input type="hidden" id='amountf2' name="amount1" value="1.00000000">
     <input type="hidden" name="want_shipping" value="0">
      <input type="hidden" name="status" value="100">
     <input type="hidden" name="success_url" value="<?php echo $url; ?>dashboard/index.php">
-    <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=exchangerequest">
+    <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=subscription">
     <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn.php">
     <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
 </form>

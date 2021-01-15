@@ -12,7 +12,10 @@
 
 $paymentsave = array();
 
-    $rates = ratedata($_POST['item_number']);
+    $rates = array();
+    $rates['rate_name'] = "{$_POST['item_number']} Months Subscription";
+    $rates['rate_start'] = $_POST['item_number'] * systemconfig("table_amount");
+    $rates['rate_bonus'] = $_POST['item_number'];
     $owner = userdata($_POST['custom']);
 
     var_dump($rates);
@@ -25,21 +28,62 @@ $paymentsave = array();
 
     $paymentsave['accounts_id'] = $_POST['custom'];
     $paymentsave['amount'] = $_POST['amount1'];
-    $paymentsave['ptype'] = "complan";
+    $paymentsave['ptype'] = "subscription";
     $paymentsave['transnum'] = $_POST['txn_id'];
     $paymentsave['rate'] = $_POST['item_number'];
-    $paymentsave['remarks'] = "Complan Payment For: {$owner['username']} Complan Type: {$rates['rate_name']} - {$rates['rate_start']}";
+    $paymentsave['remarks'] = "Subscription Payment For: {$owner['username']} -- {$rates['rate_name']} - {$rates['rate_start']}";
     $paymentsave['inv'] = $_POST['invoice'];
 
 
    var_dump($paymentsave);
 
+  
+
+
+if(empty($owner['deadline'])){
+
 
 $date=date_create(date("Y-m-d"));
 date_add($date,date_interval_create_from_date_string("{$rates['rate_bonus']} months"));
 $fd = date_format($date,"Y-m-d h:i:s");
-
 $deadline = $fd;
+
+
+} else {
+
+
+$today = date("Y-m-d h:i:s");
+$expire = $owner['deadline']; //from database
+
+$today_time = strtotime($today);
+$expire_time = strtotime($expire);
+
+if ($expire_time < $today_time) { 
+
+$date=date_create(date("Y-m-d"));
+date_add($date,date_interval_create_from_date_string("{$rates['rate_bonus']} months"));
+$fd = date_format($date,"Y-m-d h:i:s");
+$deadline = $fd;
+
+
+}else{
+
+$date=date_create($owner['deadline']);
+date_add($date,date_interval_create_from_date_string("{$_POST['item_number']} months"));
+$fd = date_format($date,"Y-m-d h:i:s");
+$deadline = $fd;
+
+
+}
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -135,7 +179,7 @@ $deadline = $fd;
     $parents = array_reverse(explode("/",$owner['path']));
     unset($parents[0]);
     var_dump($parents);
-    $parent_limit = 1 + 1;
+    $parent_limit = 1 + 9;
 
 
     foreach($parents as $pk=>$pv){
@@ -162,25 +206,43 @@ $deadline = $fd;
 
         var_dump($bonus);
 
-        if(!empty($bonus['rate'])){
 
-            $bonusrates = ratedata($bonus['rate']);
-            $percent = ($bonusrates['rate_end'] / 100) * $_POST['amount1'];
+if(!empty($bonus['deadline'])){
 
-            $end = number_format($_POST['amount1'],2);
-            $start = number_format($percent,2);
-            $bonussave['remarks'] = "Bonus: {$bonusrates['rate_end']}%($start) of {$end} from {$owner['username']}";
-            $bonussave['amount'] = $percent;
+            $today = date("Y-m-d h:i:s");
+            $expire = $bonus['deadline']; //from database
 
-            $pquery = "INSERT INTO  tbl_bonus_history SET ".formquery($bonussave);
-            mysql_query_md($pquery);
+            $today_time = strtotime($today);
+            $expire_time = strtotime($expire);
 
-        }
+            if ($expire_time < $today_time) { 
+
+            }else{
+
+                        $bonusrates = ratedata($bonus['rate']);
+
+                        $percent = (systemconfig("table_percent") / 100) * $_POST['amount1'];
+                        $bns = systemconfig("table_percent");
+
+                        $end = number_format($_POST['amount1'],2);
+                        $start = number_format($percent,2);
+                        $bonussave['remarks'] = "Table Bonus: {$bns}%($start) of {$end} from {$owner['username']}";
+                        $bonussave['amount'] = $percent;
+
+                        $pquery = "INSERT INTO  tbl_bonus_history SET ".formquery($bonussave);
+                        mysql_query_md($pquery);
+
+
+            }
+
+}
+
+
 
 
     }
 
 $pquery = "INSERT INTO  tbl_payment_history SET ".formquery($paymentsave);
 mysql_query_md($pquery);
-mysql_query_md("UPDATE tbl_accounts SET activated='1',rate='{$paymentsave['rate']}',deadline='{$deadline}' WHERE accounts_id='{$paymentsave['accounts_id']}'");
+mysql_query_md("UPDATE tbl_accounts SET deadline='{$deadline}' WHERE accounts_id='{$paymentsave['accounts_id']}'");
     die('IPN OK');
