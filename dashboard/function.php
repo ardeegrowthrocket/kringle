@@ -213,7 +213,7 @@ function getpackagelist()
 function getwheresearchv2($field)
 {
 
-if($_GET['pages']=='report' || $_GET['pages']=='withdraw' || $_GET['pages']=='exchange'){
+if($_GET['pages']=='report' || $_GET['pages']=='withdraw' || $_GET['pages']=='exchange' || $_GET['pages']=='payments' || $_GET['pages']=='bonuses'){
 
 }
 
@@ -247,7 +247,7 @@ else{
 
 
 
-if($_GET['pages']=='report' || $_GET['pages']=='withdraw' || $_GET['pages']=='exchange'){
+if($_GET['pages']=='report' || $_GET['pages']=='withdraw' || $_GET['pages']=='exchange' || $_GET['pages']=='payments' || $_GET['pages']=='bonuses'){
 
 
 	//$warray2[]  = "tips.stores = '{$_SESSION['stores']}'";

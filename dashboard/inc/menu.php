@@ -38,6 +38,20 @@
                 </a>
               </li>
 
+              <li class="nav-item">
+                <a href="index.php?pages=bonushistory" class="nav-link">
+                  <i class="fas fa-history nav-icon"></i>
+                  <p>Bonus History</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="index.php?pages=paymenthistory" class="nav-link">
+                  <i class="fas fa-history nav-icon"></i>
+                  <p>Payment History</p>
+                </a>
+              </li>
+
 
            </ul>
 </li>
@@ -127,6 +141,25 @@
                   <p>Exchanges</p>
                 </a>
               </li>
+
+
+
+              <li class="nav-item">
+                <a href="index.php?pages=payments" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Payments</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="index.php?pages=bonuses" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Bonuses</p>
+                </a>
+              </li>
+
+
+
               <li class="nav-item">
                 <a href="index.php?pages=system" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>

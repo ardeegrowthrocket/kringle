@@ -316,7 +316,7 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
                					}
 
 
-                          if($_GET['task']=='delete'){
+                          if($_GET['task']=='delete' || $_GET['task']=='view'){
 
                               $addedattr[] = "disabled=\"disabled\"";
                           }
