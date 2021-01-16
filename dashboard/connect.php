@@ -364,7 +364,7 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
 
                      else if($inputs['type']=='editor'){
                       $sdata[$inputs['value']] = htmlentities($sdata[$inputs['value']]);
-                      $return .= "<textarea  class='editor form-control' {$inputs['attr']} required name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" name=''>{$sdata[$inputs['value']]}</textarea>";
+                      $return .= "<textarea style='height:300px'  class='editor form-control' {$inputs['attr']} required name=\"{$inputs['value']}\" id=\"{$inputs['value']}\" name=''>{$sdata[$inputs['value']]}</textarea>";
 
                      }
 

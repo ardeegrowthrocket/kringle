@@ -54,7 +54,60 @@ if ($expire_time < $today_time) {
 
       <p>You will lose the chance of getting large bonuses every month.</p>
 </div>
-<?php } ?>
+<?php } else {
+?>
+<div class="callout callout-info">
+      <h5>Your Subscription Expires In:.</h5>
+
+
+
+<div class="info-box">
+              <span class="info-box-icon bg-info elevation-1"><i class="fas fa-clock"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">
+                  <p id="demo">Loading</p>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+</div>
+<script>
+// Set the date we're counting down to
+var countDownDate = new Date("Jan 5, 2022 15:37:25").getTime();
+
+// Update the count down every 1 second
+var x = setInterval(function() {
+
+  // Get today's date and time
+  var now = new Date().getTime();
+
+  // Find the distance between now and the count down date
+  var distance = countDownDate - now;
+
+  // Time calculations for days, hours, minutes and seconds
+  var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+  var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  // Display the result in the element with id="demo"
+  document.getElementById("demo").innerHTML = days + "d " + hours + "h "
+  + minutes + "m " + seconds + "s ";
+
+  // If the count down is finished, write some text
+  if (distance < 0) {
+    clearInterval(x);
+    document.getElementById("demo").innerHTML = "EXPIRED";
+  }
+}, 1000);
+</script>
+
+</div>
+
+<?php
+
+} ?>
 <style>
 	label.btn.btn-default.text-center.active {
     background-color: #b3b3b3;

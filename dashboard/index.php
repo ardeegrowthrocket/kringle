@@ -65,9 +65,9 @@ a.brand-link {
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
+<!--     <a href="index.php" class="brand-link">
       <span class="brand-text font-weight-light">Kringle Cash</span>
-    </a>
+    </a> -->
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -77,7 +77,7 @@ a.brand-link {
           <i class="fas fa-search fa-user" style='font-size: 33px;color: white;'></i>
         </div>
         <div class="info">
-          <a href="#" class="d-block"><?php echo $_SESSION['fullname']; ?></a>
+          <a href="index.php" class="d-block"><?php echo $_SESSION['fullname']; ?></a>
         </div>
       </div>
 
@@ -172,7 +172,14 @@ a.brand-link {
 <script type="text/javascript">
   
  jQuery( document ).ready(function() {
+      
+
+      jQuery('.editor').summernote({
+        height: 250
+      });
+      <?php if ($_GET['pages']=='subscription' || $_GET['pages']=='exchangerequest') { ?>
       start();
+      <?php } ?>
 });
 </script>
 </body>
