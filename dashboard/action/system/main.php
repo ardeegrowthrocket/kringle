@@ -13,9 +13,9 @@ $field = array();
 $field2 = array();
 
 
-// $field[] = array("type"=>"editor","value"=>"mission");
+$field2[] = array("type"=>"editor","value"=>"terms");
 // $field[] = array("type"=>"editor","value"=>"vision");
-$field[] = array("type"=>"text","value"=>"merchant_id","label"=>"Merchant ID.");
+$field2[] = array("type"=>"text","value"=>"merchant_id","label"=>"Merchant ID.");
 #var_dump(generatedate($sdata));
 $field2[] = array("type"=>"text","value"=>"table_percent","label"=>"Percentage of Bonus in Table Matrix.");
 $field2[] = array("type"=>"text","value"=>"table_amount","label"=>"Subscription Fee.");
@@ -29,7 +29,7 @@ $field2[] = array("type"=>"text","value"=>"table_amount","label"=>"Subscription 
       <input type='hidden' name='user' value='<?php echo $_GET['uid'];?>'>
       <input type='hidden' name='id' value='<?php echo $_GET['id'];?>'>
          
-         <?php echo loadform($field,$sdata); ?>
+
 
          <?php echo loadform($field2,$sdata); ?>
 

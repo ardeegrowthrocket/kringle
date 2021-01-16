@@ -213,7 +213,7 @@ if(!empty($error))
             <div class="icheck-primary">
               <input required type="checkbox" id="agreeTerms" name="terms" value="agree">
               <label for="agreeTerms">
-               I agree to the <a href="#">terms</a>
+               I agree to the <a href="javascript:void(0)" data-toggle="modal" data-target="#modal-primary">terms</a>
               </label>
             </div>
           </div>
@@ -233,6 +233,23 @@ if(!empty($error))
   </div><!-- /.card -->
 </div>
 <!-- /.register-box -->
+
+  <div class="modal fade" id="modal-primary" style="display: none;" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <?php echo systemconfig("terms"); ?>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+</div>            
 
 <!-- jQuery -->
 <script src="plugins/jquery/jquery.min.js"></script>

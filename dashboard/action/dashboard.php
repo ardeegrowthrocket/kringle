@@ -182,3 +182,22 @@ var x = setInterval(function() {
               <!-- /.info-box-content -->
 </div>
 </div>
+
+
+<div class="callout callout-warning">
+      <h5>Your Referral Url:</h5>
+<div class="info-box">
+              <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-link"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text"></span>
+                <span class="info-box-number">
+                    <?php echo $_SERVER['HTTP_HOST']; ?>/dashboard/register.php?refer=<?php echo $_SESSION['accounts_id']; ?>
+                </span>
+              </div>
+              <!-- /.info-box-content -->
+</div>
+</div>
+
+
+
