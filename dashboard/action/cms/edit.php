@@ -15,7 +15,7 @@ $field[] = array("type"=>"editor","value"=>"pagecontent","label"=>"Page Content"
 $field[] = array("type"=>"editor","value"=>"p1","label"=>"Block A");
 $field[] = array("type"=>"editor","value"=>"p2","label"=>"Block B");
 $field[] = array("type"=>"editor","value"=>"p3","label"=>"Block C");
-$field[] = array("type"=>"file","value"=>"banner","label"=>"Banner");
+//$field[] = array("type"=>"file","value"=>"banner","label"=>"Banner");
 ?>
 <h2>Edit CMS - <?php echo $sdata['pagetitle']; ?></h2>
 <div class="panel panel-default">

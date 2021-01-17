@@ -496,6 +496,16 @@ for ($i = $for_start; $i <= $for_end; $i = strtotime('+1 week', $i)) {
               }
 
 
+              function cmsdata($id){
+
+                $q = mysql_query_md("SELECT * FROM `tbl_cms` WHERE id='$id'");
+
+                $a = mysql_fetch_md_array($q);
+
+                return $a;
+              }
+
+
               function systemconfig($code){
 
                 $q = mysql_query_md("SELECT value FROM `tbl_system` WHERE code='$code'");

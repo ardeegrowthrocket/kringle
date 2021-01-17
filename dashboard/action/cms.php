@@ -11,21 +11,6 @@ if($_POST['submit']!='' && $_POST['task']=='add')
 	unset($_POST['submit']);
 	unset($_POST['task']);
 
-$target_dir = "uploads/";
-
-$datafile = explode(".", $_FILES["banner"]["name"]);
-
-
-$_POST['link'] = $target_file = $target_dir .time().rand().".".end($datafile);
-
-
-if (move_uploaded_file($_FILES["banner"]["tmp_name"], $target_file)) {
-
-}
-
-$_POST['banner'] = $_FILES["banner"]["name"];
-
-
 
 foreach($_POST as $key=>$val){
 
@@ -55,32 +40,13 @@ if($_POST['submit']!='' && $_POST['task']=='edit')
 	unset($_POST['task']);
 
 
-
-$datarow = mysql_fetch_md_assoc(mysql_query_md("SELECT link FROM tbl_files WHERE $primary=".$_POST[$primary]));
-unlink($datarow['link']);
-
-$target_dir = "uploads/";
-
-$datafile = explode(".", $_FILES["banner"]["name"]);
-
-
-$_POST['link'] = $target_file = $target_dir .time().rand().".".end($datafile);
-
-
-if (move_uploaded_file($_FILES["banner"]["tmp_name"], $target_file)) {
-
-}
-
-$_POST['banner'] = $_FILES["banner"]["name"];
-
-
 foreach($_POST as $key=>$val){
 
 	$_POST[$key] = addslashes($val);
 }
 
 
-$fields = formquery($_POST);
+echo $fields = formquery($_POST);
 
 
 

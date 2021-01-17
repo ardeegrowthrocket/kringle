@@ -1,3 +1,14 @@
+<?php
+    include("dashboard/connect.php");
+    include("dashboard/function.php");
+
+    if($_GET['id']==''){
+        $cms = cmsdata(1);
+    }else{
+        $cms = cmsdata($_GET['id']);
+    }
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,7 +20,7 @@
     <!-- The above 4 meta tags *must* come first in the head; any other head content must come *after* these tags -->
 
     <!-- Title -->
-    <title>Kringle Cash Exchange - Home</title>
+    <title>Kringle Cash Exchange - <?php echo $cms['pagetitle']; ?></title>
 
     <!-- Favicon -->
     <link rel="icon" href="img/core-img/favicon.ico">
@@ -20,6 +31,13 @@
 </head>
 
 <body>
+    <style>
+.owl-stage a {
+    color: white!important;
+    text-decoration: underline;
+}
+
+    </style>
     <!-- ##### Preloader ##### -->
     <div id="preloader">
         <i class="circle-preloader"></i>
@@ -40,8 +58,8 @@
                             </div>
                             <!-- Top Login & Faq & Earn Monery btn -->
                             <div class="login-faq-earn-money">
-                                <a href="#">Login</a>
-                                <a href="#">Register</a>
+                                <a href="/dashboard/login.php">Login</a>
+                                <a href="/dashboard/register.php">Register</a>
 
                             </div>
                         </div>
@@ -76,10 +94,21 @@
                             <!-- Nav Start -->
                             <div class="classynav">
                                 <ul>
-                                    <li><a href="index.html">Home</a></li>
-    
-                                    <li><a href="#">Currencies</a></li>
-                                    <li><a href="contact.html">Contact</a></li>
+
+                                    <?php
+                                    $qx = mysql_query_md("SELECT * FROM `tbl_cms`");
+
+                                        while( $row = mysql_fetch_md_array($qx)) {
+
+           
+
+                                    ?>
+                                        <li><a href="index.php?id=<?php echo $row['id']; ?>"><?php echo $row['pagetitle']; ?></a></li>
+                                    <?php
+                                    }
+                                    ?>
+
+                                    
                                 </ul>
 
                                 <!-- Newsletter Form -->
@@ -96,114 +125,86 @@
     <!-- ##### Header Area End ##### -->
 
     <!-- ##### Hero Area Start ##### -->
+    <?php if($cms['id']==1) { ?>
     <section class="hero-area">
-        <div class="hero-slides owl-carousel">
-
-            <!-- Single Hero Slide -->
-            <div class="single-hero-slide">
-                <div class="container h-100">
-                    <div class="row h-100 align-items-center">
-                        <div class="col-12 col-md-7">
-                            <div class="hero-slides-content">
-                                <h2 data-animation="fadeInUp" data-delay="100ms">Take a step into the <span>Crypto World</span></h2>
-                                <h6 data-animation="fadeInUp" data-delay="400ms">Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar.</h6>
-                            </div>
-                        </div>
-                        <div class="col-12 col-md-5">
-                            <div class="hero-slides-thumb" data-animation="fadeInUp" data-delay="1000ms">
-                                <img src="img/bg3.jpg" alt="">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-        </div>
+            <?php echo $cms['pagecontent']; ?>
     </section>
-    <!-- ##### Hero Area End ##### -->
+    <?php } else { ?>
 
-    <!-- ##### Course Area Start ##### -->
-    <div class="cryptos-feature-area section-padding-100-0">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                    <div class="section-heading text-center mx-auto">
-                        <h3>Let’s change <br><span>the world</span> together</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
+
+    <div class="breadcumb-area">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12 col-md-6">
+                    <div class="breadcumb-text">
+                        <h2><?php echo $cms['pagetitle']; ?></h2>
                     </div>
                 </div>
             </div>
-            
-            <div class="row">
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-safebox"></i>
-                        <h3>Fast &amp; Easy</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-   
-                    </div>
-                </div>
-
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-bitcoin"></i>
-                        <h3>No strigs attached</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-     
-                    </div>
-                </div>
-
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-exchange"></i>
-                        <h3>Small Commisions</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-               
-                    </div>
-                </div>
-
-                <!-- Single Course Area -->
-                <div class="col-12 col-md-6 col-xl-3">
-                    <div class="single-feature-area mb-100 text-center">
-                        <i class="icon-wallet"></i>
-                        <h3>100% Secure</h3>
-                        <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum.</p>
-     
+        </div>
+        <!-- Breadcumb Thumb Area -->
+        <div class="breadcumb-thumb-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12">
+                        <div class="breadcumb-thumb">
+                            <img src="img/IMG_3400.jpg" alt="">
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <div class="cryptos-feature-area section-padding-100-0">
+            <?php echo $cms['pagecontent']; ?>
+    </div>
+    <?php } ?>
+    <!-- ##### Hero Area End ##### -->
+
+    <!-- ##### Course Area Start ##### -->
+    <div class="cryptos-feature-area section-padding-100-0">
+            <?php echo $cms['p1']; ?>
+    </div>
     <!-- ##### Course Area End ##### -->
 
     <!-- ##### About Area Start ##### -->
     <section class="cryptos-about-area">
+            <?php echo $cms['p2']; ?>
+    </section>
+    <!-- ##### About Area End ##### -->
+
+    <!-- ##### Currency Area End ##### -->
+
+
+
+
+
+   <hr>
+   <section class="contact-area section-padding-100-0">
         <div class="container">
-            <div class="row align-items-center">
-                <div class="col-12 col-md-6">
-                    <div class="about-thumbnail mb-100">
-                        <img src="img/bg2.png" alt="">
-                    </div>
-                </div>
-                <div class="col-12 col-md-6">
-                    <div class="about-content mb-100">
-                        <div class="section-heading">
-                            <h3>Let’s change <br><span>the world</span> together</h3>
-                            <h5>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl.</h5>
-                            <p>Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi. Donec et sollicitudin est, in euismod erat. Ut at erat et arcu pulvinar cursus a eget nisl. Cras vitae turpis lacinia, lacinia lacus non, fermentum nisi.</p>
-    
-                        </div>
+            <div class="row">
+
+
+                <!-- Contact Form Area -->
+                <div class="col-12 col-lg-12">
+                    <h2>Contact Us</h2>
+                    <div class="contact-form-area mb-100">
+                        <form action="#" method="post">
+                            <input type="text" class="form-control" id="name" placeholder="Name">
+                            <input type="email" class="form-control" id="email" placeholder="E-mail">
+                            <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
+                            <button class="btn cryptos-btn btn-2 mt-30" type="submit">Contact Us</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <!-- ##### About Area End ##### -->
 
-    <!-- ##### Currency Area End ##### -->
+
+
 
 
     <!-- ##### Footer Area Start ##### -->
@@ -216,7 +217,7 @@
                 <div class="row h-100 align-items-center justify-content-center">
                     <div class="col-12">
                         <p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved
 <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 </p>
                     </div>
