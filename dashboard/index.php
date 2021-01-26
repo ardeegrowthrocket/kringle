@@ -57,7 +57,13 @@ a.brand-link {
 <div class="wrapper">
 
   <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
 
   </nav>
   <!-- /.navbar -->
@@ -177,9 +183,20 @@ a.brand-link {
       jQuery('.editor').summernote({
         height: 250
       });
-      <?php if ($_GET['pages']=='subscription' || $_GET['pages']=='exchangerequest') { ?>
+      <?php if ($_GET['pages']=='subscription' || $_GET['pages']=='exchangerequest' || ($_GET['pages']=='users' && $_GET['task']=='edit')) { ?>
       start();
       <?php } ?>
+
+
+      jQuery( ".nav-link" ).each(function( index ) {
+              if(jQuery(this).attr('href')=='index.php?pages=<?php echo $_GET['pages']; ?>'){
+
+                 jQuery(this).addClass('active');
+              }
+      });
+
+
+
 });
 </script>
 </body>

@@ -19,6 +19,9 @@ $field2[] = array("type"=>"text","value"=>"merchant_id","label"=>"Merchant ID.")
 #var_dump(generatedate($sdata));
 $field2[] = array("type"=>"text","value"=>"table_percent","label"=>"Percentage of Bonus in Table Matrix.");
 $field2[] = array("type"=>"text","value"=>"table_amount","label"=>"Subscription Fee.");
+
+
+$field2[] = array("type"=>"text","value"=>"email","label"=>"Contact Us Email.");
 //
 ?>
 <h2>System Configuration</h2>

@@ -17,6 +17,19 @@ $field[] = array("type"=>"text","value"=>"password","label"=>"Password");
 $field[] = array("type"=>"email","value"=>"email","label"=>"Email");
 $field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>array("0"=>"Member","1"=>"Administrator"));
 
+
+$complan = array();
+$queryx  = mysql_query_md("SELECT * FROM tbl_rate");
+$complan[0] = "Select a Complan";
+while($rows=mysql_fetch_md_assoc($queryx))
+{
+
+		 $complan[$rows['rate_id']] = $rows['rate_name'];
+	
+}
+
+$sdata['rate'] = $complan[$sdata['rate']];
+
 //$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'));
 ?>
 <h2>Data</h2>
@@ -31,6 +44,34 @@ $field[] = array("type"=>"select","value"=>"role","label"=>"Role","option"=>arra
    </div>
 </div> 
 
+<hr>
+
+<h2>Others</h2>
+<div class="panel panel-default">
+   <div class="panel-body">
+         <center>
+         	<input class='btn btn-primary btn-lg' type='button' name='submit2' onclick="window.location='?pages=<?php echo $_GET['pages'];?>&id=<?php echo $_GET['id']; ?>&task=complan'" value='View Complan'>
+         	<input class='btn btn-primary btn-lg' type='button' name='submit3' onclick="window.location='?pages=<?php echo $_GET['pages'];?>&id=<?php echo $_GET['id']; ?>&task=complantable'" value='View Matrix'>
+         </center>
+   </div>
+</div> 
+
+
+
+
+<!-- <hr>
+<h2>Table Matrix</h2>
+<?php //require("./action/users/subscription-user.php"); ?>
+
+
+<hr>
+<h2>Complan</h2>
+<?php 
+//require("./action/users/activate-user.php"); 
+?>
+ -->
+
+<hr>
 <h2>Genealogy</h2>
 <style>
 	#test{

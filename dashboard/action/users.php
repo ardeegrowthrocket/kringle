@@ -68,6 +68,22 @@ if($_GET['task']=='edit')
 	echo "<a class='goback' href='?pages=".$_GET['pages']."'>Go back</a>";
 	include($_GET['pages']."/edit.php");
 }
+
+if($_GET['task']=='complan')
+{
+	echo "<a class='goback' href='?pages=".$_GET['pages']."&id={$_GET['id']}&task=edit'>Go back</a>";
+	include($_GET['pages']."/activate-user.php");
+}
+
+if($_GET['task']=='complantable')
+{
+	echo "<a class='goback' href='?pages=".$_GET['pages']."&id={$_GET['id']}&task=edit'>Go back</a>";
+	include($_GET['pages']."/subscription-user.php");
+}
+
+
+
+
 if($_GET['task']=='delete')
 {
 	echo "<a class='goback' href='?pages=".$_GET['pages']."'>Go back</a>";

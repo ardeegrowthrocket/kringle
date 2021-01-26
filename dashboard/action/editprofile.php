@@ -18,7 +18,7 @@ $accounts_id = $_SESSION['accounts_id'];
 		$_SESSION['email'] = $_POST['email'];
 		unset($_POST['submit']);
 		unset($_POST['task']);
-		echo $fields = formquery($_POST);
+		$fields = formquery($_POST);
 		mysql_query_md("UPDATE tbl_accounts SET $fields WHERE accounts_id='$accounts_id'");
 		$success = 1;
 		}

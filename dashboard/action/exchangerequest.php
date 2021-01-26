@@ -83,7 +83,7 @@ $field = array();
 $field[] = array("type"=>"select","value"=>"claimtype","label"=>"Select Mode of Exchange","option"=>array("btc"=>"Bitcoin","kc"=>"Kringle Coins","billc"=>"The Billion Coins"));
 $field[] = array("type"=>"text","value"=>"address","label"=>"BTC Address:");
 
-$field[] = array("type"=>"text","value"=>"transnum","label"=>"TRX Code/ Transaction Code");
+$field[] = array("type"=>"text","value"=>"transnum","label"=>"Txid / Hash");
 $field[] = array("type"=>"password","value"=>"password","label"=>"Please enter password:");
 //$field[] = array("type"=>"select","value"=>"stores","label"=>"Branch","option"=>getarrayconfig('stores'));
 ?>

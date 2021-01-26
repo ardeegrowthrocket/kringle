@@ -204,7 +204,7 @@
         <div class="container">
             <div class="row">
 
-
+                <div id='notibar'></div>
                 <!-- Contact Form Area -->
                 <div class="col-12 col-lg-12">
                     <h2>Contact Us</h2>
@@ -213,13 +213,40 @@
                             <input type="text" class="form-control" id="name" placeholder="Name">
                             <input type="email" class="form-control" id="email" placeholder="E-mail">
                             <textarea name="message" class="form-control" id="message" cols="30" rows="10" placeholder="Message"></textarea>
-                            <button class="btn cryptos-btn btn-2 mt-30" type="submit">Contact Us</button>
+                            <button class="btn cryptos-btn btn-2 mt-30" type="button" onclick="submitcontact()">Contact Us</button>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
     </section>
+
+    <script>
+        function submitcontact(){
+
+
+
+                var name = $('#name').val();
+                var email = $('#email').val();
+                var message = $('#message').val();
+                $('#notibar').html('<div class="noti"><ul class="fa-ul"><li><i class="fa fa-cog fa-spin fa-li"></i> Please wait.. Sending.</li></ul></div>');
+                $.post("mail/contact_me.php",{name: name,email:email,message:message}, function(data, status){
+                //alert(data);
+                $('#notibar').html('');
+                if(data=="0")
+                {
+                  $('#notibar').html('<div class="warning"><ul class="fa-ul"><li><i class="fa fa-warning fa-li"></i>Error.</li></ul></div>');
+                }
+                if(data=="1")
+                {
+                  $('#notibar').html('<div class="noti"><ul class="fa-ul"><li><i class="fa fa-cog fa-spin fa-li"></i> Email Sent. Please wait for our support we will contact you asap.</li></ul></div>');
+                  window.location = 'index.php';
+                }
+                });  
+
+        }
+    </script>
+
 
 
 

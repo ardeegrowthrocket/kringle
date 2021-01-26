@@ -158,7 +158,12 @@
                 </a>
               </li>
 
-
+              <li class="nav-item">
+                <a href="index.php?pages=cms" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>CMS Pages</p>
+                </a>
+              </li>
 
               <li class="nav-item">
                 <a href="index.php?pages=system" class="nav-link">

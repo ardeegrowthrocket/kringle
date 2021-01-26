@@ -3,7 +3,10 @@ session_start();
 require_once("./connect.php");
 require_once("./function.php");
 
+$usersubs = userdata($_GET['id']);
 
+
+if(empty($usersubs['activated']) || empty($usersubs['rate'])) {
 		$query = "SELECT * FROM tbl_rate";
 		$q = mysql_query_md($query);
 		$rate = array();
@@ -39,7 +42,7 @@ require_once("./function.php");
 		jQuery('#pricecc').text(jQuery(aa).attr('data-price'));
 
 		jQuery('#item_name').val(jQuery(aa).attr('data-rate_name')+" Complan");
-		jQuery('#item_desc').val("Complan Payment for Account : <?php echo $_SESSION['username']; ?>");
+		jQuery('#item_desc').val("Complan Payment for Account : <?php echo $usersubs['username']; ?>");
 		jQuery('#item_number').val(jQuery(aa).attr('data-rate_id'));
 		jQuery('#amountf').val(jQuery(aa).attr('data-rate_start'));
 
@@ -50,7 +53,7 @@ require_once("./function.php");
 		
 
     jQuery('#item_name2').val(jQuery(aa).attr('data-rate_name')+" Complan");
-    jQuery('#item_desc2').val("Complan Payment for Account : <?php echo $_SESSION['username']; ?>");
+    jQuery('#item_desc2').val("Complan Payment for Account : <?php echo $usersubs['username']; ?>");
     jQuery('#item_number2').val(jQuery(aa).attr('data-rate_id'));
     jQuery('#amountf2').val(jQuery(aa).attr('data-rate_start'));
 
@@ -110,7 +113,7 @@ require_once("./function.php");
               <div class="mt-4">
                 <div class="btn btn-primary btn-lg btn-flat" onclick="checkmeout()">
                   <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                  Proceed To Payment
+                   Mark as Paid
                 </div>
 
               </div>
@@ -136,29 +139,10 @@ require_once("./function.php");
 </script>
 
 <?php  $url = "http://".$_SERVER['HTTP_HOST']."/"; ?>
-<form id='paymentproceed' action="https://www.coinpayments.net/index.php" method="post">
-    <input type="hidden" name="cmd" value="_pay_simple">
-    <input type="hidden" name="reset" value="1">
-    <input type="hidden" name="merchant" value="<?php echo systemconfig('merchant_id'); ?>">
-    <input type="hidden" name="currency" value="USD">    
-    <input type="hidden" id='item_name' name="item_name" value="Test">
-    <input type="hidden" id='item_desc' name="item_desc" value="Test Description">
-    <input type="hidden" id='item_number' name="item_number" value="1">
-    <input type="hidden" id='custom' name="custom" value="<?php echo $_SESSION['accounts_id']; ?>">
-    <input type="hidden" id='invoice' name="invoice" value="CP-<?php echo rand(); ?>">
-    <input type="hidden" id='amountf' name="amountf" value="1.00000000">
-    <input type="hidden" name="want_shipping" value="0">
-    <input type="hidden" name="success_url" value="<?php echo $url; ?>dashboard/index.php">
-    <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=exchangerequest">
-    <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn.php">
-    <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
-</form>
 
 
 
-
-<?php if($_GET['debugpay']==1) { ?>
-<form id='paymentproceed2' action="<?php echo $url; ?>dashboard/ipn.php" method="post">
+<form id='paymentproceed' action="<?php echo $url; ?>dashboard/ipnuser.php" method="post">
     <input type="hidden" name="cmd" value="_pay_simple">
     <input type="hidden" name="reset" value="1">
     <input type="hidden" name="merchant" value="<?php echo systemconfig('merchant_id'); ?>">
@@ -169,7 +153,7 @@ require_once("./function.php");
     <input type="hidden"  name="txn_id" value="txn<?php echo rand(); ?>">
     <input type="hidden" id='item_desc2' name="item_desc" value="Test Description">
     <input type="hidden" id='item_number2' name="item_number" value="1">
-    <input type="hidden" id='custom2' name="custom" value="<?php echo $_SESSION['accounts_id']; ?>">
+    <input type="hidden" id='custom2' name="custom" value="<?php echo $usersubs['accounts_id']; ?>">
     <input type="hidden" id='invoice2' name="invoice" value="CP-<?php echo rand(); ?>">
     <input type="hidden" id='amountf2' name="amount1" value="1.00000000">
     <input type="hidden" name="want_shipping" value="0">
@@ -179,4 +163,17 @@ require_once("./function.php");
     <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn.php">
     <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
 </form>
+
+<?php } else { 
+  $ratedata = ratedata($usersubs['rate']);
+  ?>
+<div class="callout callout-success">
+      <h5><?php echo $ratedata['rate_name']; ?></h5>
+
+      <p>Fee: <?php echo $ratedata['rate_start'];?></p>
+
+      <p>Direct Referral Percentage: <?php echo $ratedata['rate_end'];?>%</p>
+
+      <p>Months of Free in Table Matrix: <?php echo $ratedata['rate_bonus'];?></p>
+</div>
 <?php } ?>

@@ -46,7 +46,7 @@ foreach($_POST as $key=>$val){
 }
 
 
-echo $fields = formquery($_POST);
+ $fields = formquery($_POST);
 
 
 

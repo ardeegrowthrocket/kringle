@@ -7,12 +7,17 @@ $levelimit = $_SESSION['level'] + 9;
 $path = $_SESSION['path'];
 $aid = $_SESSION['accounts_id'];
 
+
+
 if(!empty($_REQUEST['aid'])){
+
   $aid = $_GET['aid'];
   $path = $_GET['path'];
   $levelimit = $_GET['level'] + 9;
 
 }
+
+
 
 
 $query = "SELECT * FROM `tbl_accounts` WHERE path LIKE '{$path}%' AND level <= $levelimit ORDER BY `accounts_id` ASC";
@@ -78,7 +83,7 @@ if ($expire_time < $today_time) {
 
               }
             ?>
-          [{'v':'<?php echo $d['accounts_id']; ?>', 'f':'<?php echo $d['email']; ?><?php echo $html; ?>'},'<?php echo $d['parent']; ?>', ''],
+          [{'v':'<?php echo $d['accounts_id']; ?>', 'f':'<?php echo $d['fullname']; ?><?php echo $html; ?>'},'<?php echo $d['parent']; ?>', ''],
          <?php } ?>
         ]);
 

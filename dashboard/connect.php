@@ -31,7 +31,7 @@ function getconnection(){
 
 
   }
-  return new mysqli("localhost","jointlin_jlc","oKcnL4P_zwf(","jointlin_jlc");
+  return new mysqli("localhost","kringlee_kringle","asdasdasd123","kringlee_kringle");
   
 }
 function recordsql($q){

@@ -4,6 +4,10 @@ require_once("./connect.php");
 require_once("./function.php");
 
 
+$usersubs = userdata($_GET['id']);
+
+
+
 		$rate = array();
 
 
@@ -27,14 +31,14 @@ for ($x = 1; $x <= 5; $x++) {
 
   $is_active = 1;
 
-  if(empty($_SESSION['deadline'])){
+  if(empty($usersubs['deadline'])){
       $is_active = 0;
   }else
 
   {
 
 $today = date("Y-m-d h:i:s");
-$expire = $_SESSION['deadline']; //from database
+$expire = $usersubs['deadline']; //from database
 
 $today_time = strtotime($today);
 $expire_time = strtotime($expire);
@@ -48,7 +52,7 @@ if ($expire_time < $today_time) {
 
 
 
-$countdown = strtotime($_SESSION['deadline']);
+$countdown = strtotime($usersubs['deadline']);
 
 
 $cdtest =  date("M d, Y h:i:s",$countdown);
@@ -64,7 +68,7 @@ $cdtest =  date("M d, Y h:i:s",$countdown);
 <?php } else {
 ?>
 <div class="callout callout-info">
-      <h5>Your Subscription Expires In:.</h5>
+      <h5><?php echo $usersubs['username']; ?> Subscription Expires In:.</h5>
 
 
 
@@ -132,7 +136,7 @@ var x = setInterval(function() {
 		jQuery('#pricecc').text(jQuery(aa).attr('data-price'));
 
 		jQuery('#item_name').val(jQuery(aa).attr('data-rate_name')+" Subscription");
-		jQuery('#item_desc').val("Subscription Payment for Account : <?php echo $_SESSION['username']; ?>");
+		jQuery('#item_desc').val("Subscription Payment for Account : <?php echo $usersubs['username']; ?>");
 		jQuery('#item_number').val(jQuery(aa).attr('data-rate_id'));
 		jQuery('#amountf').val(jQuery(aa).attr('data-rate_start'));
 
@@ -143,7 +147,7 @@ var x = setInterval(function() {
 		
 
     jQuery('#item_name2').val(jQuery(aa).attr('data-rate_name')+" Subscription");
-    jQuery('#item_desc2').val("Subscription Payment for Account : <?php echo $_SESSION['username']; ?>");
+    jQuery('#item_desc2').val("Subscription Payment for Account : <?php echo $usersubs['username']; ?>");
     jQuery('#item_number2').val(jQuery(aa).attr('data-rate_id'));
     jQuery('#amountf2').val(jQuery(aa).attr('data-rate_start'));
 
@@ -202,7 +206,7 @@ var x = setInterval(function() {
               <div class="mt-4">
                 <div class="btn btn-primary btn-lg btn-flat" onclick="checkmeout()">
                   <i class="fas fa-cart-plus fa-lg mr-2"></i>
-                  Proceed To Payment
+                  Mark as Paid
                 </div>
 
               </div>
@@ -228,29 +232,7 @@ var x = setInterval(function() {
 </script>
 
 <?php  $url = "http://".$_SERVER['HTTP_HOST']."/"; ?>
-<form id='paymentproceed' action="https://www.coinpayments.net/index.php" method="post">
-    <input type="hidden" name="cmd" value="_pay_simple">
-    <input type="hidden" name="reset" value="1">
-    <input type="hidden" name="merchant" value="<?php echo systemconfig('merchant_id'); ?>">
-    <input type="hidden" name="currency" value="USD">    
-    <input type="hidden" id='item_name' name="item_name" value="Test">
-    <input type="hidden" id='item_desc' name="item_desc" value="Test Description">
-    <input type="hidden" id='item_number' name="item_number" value="1">
-    <input type="hidden" id='custom' name="custom" value="<?php echo $_SESSION['accounts_id']; ?>">
-    <input type="hidden" id='invoice' name="invoice" value="SF-<?php echo rand(); ?>">
-    <input type="hidden" id='amountf' name="amountf" value="1.00000000">
-    <input type="hidden" name="want_shipping" value="0">
-    <input type="hidden" name="success_url" value="<?php echo $url; ?>dashboard/index.php">
-    <input type="hidden" name="cancel_url" value="<?php echo $url; ?>dashboard/index.php?pages=subscription">
-    <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn2.php">
-    <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
-</form>
-
-
-
-
-<?php if($_GET['debugpay']==1) { ?>
-<form id='paymentproceed2' action="<?php echo $url; ?>dashboard/ipn2.php" method="post">
+<form id='paymentproceed' action="<?php echo $url; ?>dashboard/ipn2user.php" method="post">
     <input type="hidden" name="cmd" value="_pay_simple">
     <input type="hidden" name="reset" value="1">
     <input type="hidden" name="merchant" value="<?php echo systemconfig('merchant_id'); ?>">
@@ -261,7 +243,7 @@ var x = setInterval(function() {
     <input type="hidden"  name="txn_id" value="txn<?php echo rand(); ?>">
     <input type="hidden" id='item_desc2' name="item_desc" value="Test Description">
     <input type="hidden" id='item_number2' name="item_number" value="1">
-    <input type="hidden" id='custom2' name="custom" value="<?php echo $_SESSION['accounts_id']; ?>">
+    <input type="hidden" id='custom2' name="custom" value="<?php echo $usersubs['accounts_id']; ?>">
     <input type="hidden" id='invoice2' name="invoice" value="SF-<?php echo rand(); ?>">
     <input type="hidden" id='amountf2' name="amount1" value="1.00000000">
     <input type="hidden" name="want_shipping" value="0">
@@ -271,4 +253,3 @@ var x = setInterval(function() {
     <input type="hidden" name="ipn_url" value="<?php echo $url; ?>dashboard/ipn.php">
     <input type="image" src="https://www.coinpayments.net/images/pub/buynow-wide-blue.png" alt="Buy Now with CoinPayments.net">
 </form>
-<?php } ?>
